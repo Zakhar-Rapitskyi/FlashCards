@@ -21,6 +21,11 @@
         <button style="margin-right: 10px" id="prevWord" class="btn btn-secondary mr-2">Previous</button>
         <button id="nextWord" class="btn btn-primary">Next</button>
     </div>
+    <div class="container d-flex justify-content-center" style="margin-top: 10px">
+        <button id="deleteWord" class="btn btn-outline-danger" data-id="${flashCardsList[currentIndex].getId()}">
+            Delete
+        </button>
+    </div>
 </div>
 
 <script th:inline="javascript">
@@ -28,6 +33,10 @@
     let currentIndex = 0;
     const flashCardsList = /*[[${flashCardsList}]]*/;
     let isTranslationVisible = false;
+
+    document.getElementById("deleteWord").addEventListener("click", function () {
+        fetch("http://localhost:8080/deleteWord/" + flashCardsList[currentIndex].id, {method: "DELETE"});
+    })
 
     document.getElementById("showTranslation").addEventListener("click", function () {
         let element = document.getElementById("translation");
@@ -44,12 +53,14 @@
         navigate(1);
     });
 
-    document.addEventListener("keydown", function(event) {
+    document.addEventListener("keydown", function (event) {
         if (event.key === "ArrowLeft") {
             navigate(-1);
         } else if (event.key === "ArrowRight") {
             navigate(1);
-        }else if (event.key === "Enter") {
+        }else if (event.key === "Delete") {
+            fetch("http://localhost:8080/deleteWord/" + flashCardsList[currentIndex].id, {method: "DELETE"});
+        } else if (event.key === "Enter") {
             let element = document.getElementById("translation");
             element.style.display = isTranslationVisible ? "none" : "block";
             isTranslationVisible = !isTranslationVisible;
@@ -71,6 +82,7 @@
         document.querySelector(".container h1").innerText = flashCardsList[currentIndex].word;
         document.querySelector("#translation strong span").innerText = flashCardsList[currentIndex].translate;
     }
+
     /*]]>*/
 </script>
 
