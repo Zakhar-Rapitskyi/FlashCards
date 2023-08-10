@@ -58,7 +58,7 @@
             navigate(-1);
         } else if (event.key === "ArrowRight") {
             navigate(1);
-        }else if (event.key === "Delete") {
+        } else if (event.key === "Delete") {
             fetch("http://localhost:8080/deleteWord/" + flashCardsList[currentIndex].id, {method: "DELETE"});
         } else if (event.key === "Enter") {
             let element = document.getElementById("translation");

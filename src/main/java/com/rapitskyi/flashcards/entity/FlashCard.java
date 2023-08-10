@@ -18,9 +18,17 @@ public class FlashCard{
     @Column(
             name = "word",
             nullable = false,
-            unique = true
+            unique = true,
+            length = 50
     )
     private String word;
+
+    @Column(
+            name = "translate",
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
+    private String translate;
 
     @Override
     public String toString() {
@@ -30,13 +38,6 @@ public class FlashCard{
                 ", translate='" + translate + '\'' +
                 '}';
     }
-
-    @Column(
-            name = "translate",
-            nullable = false,
-            columnDefinition = "TEXT"
-    )
-    private String translate;
 
     public FlashCard() {
     }
